@@ -20,7 +20,7 @@ def load_handimage(path):
     # イメージとラベル領域を確保
     images = np.ndarray((len(files), IMAGE_SIZE, IMAGE_SIZE,
                             COLOR_BYTE), dtype = np.uint8)
-    labels = np.ndarray(len(files), dtype=np.int)
+    labels = np.ndarray(len(files), dtype=int)
 
     # イメージとラベルを読み込み
     for idx, file in enumerate(files):
@@ -35,8 +35,8 @@ def load_handimage(path):
     # scikit-learn の他のデータセットの形式に合わせる
     flat_data = images.reshape((-1, IMAGE_SIZE * IMAGE_SIZE * COLOR_BYTE))
     images = flat_data.view()
-    return datasets.base.Bunch(data=flat_data,
-                 target=labels.astype(np.int),
+    return datasets._base.Bunch(data=flat_data,
+                 target=labels.astype(int),
                  target_names=np.arange(CATEGORY_NUM),
                  images=images,
                  DESCR=None)
